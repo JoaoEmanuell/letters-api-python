@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+    letters-api-production:
+        build: .
+        volumes:
+            - ./database/:/usr/src/app/database/
+        ports:
+            - '8000:8000'
+        restart: always

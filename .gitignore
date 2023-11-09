@@ -1,0 +1,8 @@
+settings.py
+database
+migrations/
+tmp.*
+tmp/
+.vscode/
+.env
+__pycache__/
