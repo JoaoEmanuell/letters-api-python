@@ -10,10 +10,6 @@ COPY . .
 
 RUN pip install -r requirements.txt --no-cache-dir
 
-# Setup
-
-RUN cd main && python setup.py
-
 # Ports and run
 
 EXPOSE 8000

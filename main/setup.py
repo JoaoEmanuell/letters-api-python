@@ -32,7 +32,7 @@ def copy_settings() -> None:
     global BASE_DIR
 
     if not exists(f"{BASE_DIR}/database/backup/settings.py"):
-        with open("settings_example.py", "r") as settings_example:
+        with open(f"{BASE_DIR}/main/settings_example.py", "r") as settings_example:
             settings_example = settings_example.read()
             with open("settings.py", "w") as settings:
                 settings_with_secret_key = _write_django_secret_key(settings_example)
@@ -79,7 +79,7 @@ def restore_settings() -> None:
 
     backup_dir = f"{BASE_DIR}/database/backup"
     with open(f"{backup_dir}/settings.py", "r") as settings_backup:
-        with open("settings.py", "w") as settings:
+        with open(f"{BASE_DIR}/main/settings.py", "w") as settings:
             settings.write(settings_backup.read())
 
 
@@ -96,7 +96,7 @@ def _write_django_secret_key(settings: str) -> str:
 
 def create_database() -> None:
     from os import mkdir
-    from os.path import exists
+    from os.path import exists, join
 
     global BASE_DIR
 
@@ -106,12 +106,13 @@ def create_database() -> None:
         mkdir(path_to_database)
 
     # Create sqlite3 db
-    if not exists(f"{path_to_database}/db.sqlite3"):
-        with open(f"{path_to_database}/db.sqlite3", "w") as file:
+    path_to_db_sql = join(path_to_database, "db.sqlite3")
+    if not exists(path_to_db_sql):
+        with open(path_to_db_sql, "w") as file:
             file.write("")
 
-    # Create letters
-    path_to_letters = f"{path_to_database}letters/"
+    # Create letters dir
+    path_to_letters = join(path_to_database, "letters")
     if not exists(path_to_letters):
         mkdir(path_to_letters)
 
